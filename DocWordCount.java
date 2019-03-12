@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.InputSplit;
-import org.apache.hadoop.mapred.FileSplit;
+import org.apache.hadoop.mapreduce.lib.input.FileSplit;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -29,7 +29,7 @@ public class DocWordCount extends Configured implements Tool {
    }
 
    public int run( String[] args) throws  Exception {
-      Job job  = Job .getInstance(getConf(), " DocWordCount ");
+      Job job  = Job .getInstance(getConf(), " docwordcount ");
       job.setJarByClass( this .getClass());
 
       FileInputFormat.addInputPaths(job,  args[0]);
