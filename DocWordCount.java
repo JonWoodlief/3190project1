@@ -50,25 +50,30 @@ public class DocWordCount extends Configured implements Tool {
 
       public void map( LongWritable offset,  Text lineText,  Context context)
         throws  IOException,  InterruptedException {
-
+         
+         //get line of text to operate on and initialize Text variable
          String line  = lineText.toString();
          Text currentWord  = new Text();
 
+
+         //Iterate through each word in line
          for ( String word  : WORD_BOUNDARY .split(line)) {
             if (word.isEmpty()) {
-               continue;
+               continue; //skip word if empty
             }
 
-            InputSplit split = context.getInputSplit();
-            Path path = ((FileSplit) split).getPath();
-            String fileName = path.getName();
-            String s =word+"####"+fileName;
-            currentWord  = new Text(s);
-            context.write(currentWord, one);
+            InputSplit split = context.getInputSplit(); //get input split
+            Path path = ((FileSplit) split).getPath(); //get path of file from the inputsplit
+            String fileName = path.getName(); //get the name of file from the path
+            String s =word+"####"+fileName; //create new string s, by appending our delimiter and filename to the word
+            currentWord  = new Text(s); //convert String s into Text datatype for hadoop
+            context.write(currentWord, one); //mark the presence of word
          }
       }
    }
+    
 
+   //Reduce gets word counts from each of the nodes that lines were mapped to, and adds the counts together and centralizes results
    public static class Reduce extends Reducer<Text ,  IntWritable ,  Text ,  IntWritable > {
       @Override 
       public void reduce( Text word,  Iterable<IntWritable > counts,  Context context)
