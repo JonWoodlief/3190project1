@@ -1,0 +1,17 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+alias pb='javac -cp /opt/cloudera/parcels/CDH/lib/hadoop/*:/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/* DocWordCount.java -d build -Xlint'
+alias pb2='javac -cp /opt/cloudera/parcels/CDH/lib/hadoop/*:/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/* WordCount.java -d build -Xlint'
+alias pj='jar -cvf docwordcount.jar -C build/ .'
+alias pr='hadoop jar docwordcount.jar org.myorg.DocWordCount /user/jwoodli2/input /user/jwoodli2/output'
+alias pc='hadoop fs -cat /user/jwoodli2/output/*'
+alias pro='hadoop fs -rm -r /user/jwoodli2/output'
