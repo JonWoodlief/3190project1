@@ -1,0 +1,17 @@
+== How to use DocWordCount ==
+
+Build DocWordCount.java using the following command:
+    javac -cp /opt/cloudera/parcels/CDH/lib/hadoop/*:/opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/* DocWordCount.java -d build -Xlint
+
+Create the jar using the following command:
+    jar -cvf docwordcount.jar -C build/ .
+
+Run the program using the following command, substititing <INPUT> and <OUTPUT> for the path to your input and output directories on your hadoop cluster
+    hadoop jar docwordcount.jar org.myorg.DocWordCount <INPUT> <OUTPUT>
+
+DocWordCount will create a handful of files in your output directory, listing a count of words appearing per file. To view this output in your terminal use the following command
+    hadoop fs -cat <OUTPUT>/*
+
+Exact commands I used:
+hadoop jar docwordcount.jar org.myorg.DocWordCount /user/jwoodli2/input /user/jwoodli2/output
+hadoop fs -cat /user/jwoodli2/output/*
